@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns="http://www.yxffcode.cn/schema/ctl"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            targetNamespace="http://www.yxffcode.cn/schema/ctl"
+            elementFormDefault="qualified"
+            attributeFormDefault="unqualified">
+
+    <xsd:import namespace="http://www.springframework.org/schema/beans"
+                schemaLocation="http://www.springframework.org/schema/beans/spring-beans-4.3.xsd"/>
+    <xsd:import namespace="http://www.springframework.org/schema/tool"
+                schemaLocation="http://www.springframework.org/schema/tool/spring-tool-4.3.xsd"/>
+
+    <xsd:annotation>
+        <xsd:documentation><![CDATA[
+	xml description for ctl namespace.the ctl namespace providers mary control tags for spring xml config, such as <ctl:if>, <ctl:switch> .etc.
+		]]></xsd:documentation>
+    </xsd:annotation>
+
+    <xsd:element name="place-holder">
+        <xsd:annotation>
+            <xsd:documentation><![CDATA[
+托管的配置
+      ]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:attribute name="location" type="xsd:string" use="required">
+                <xsd:annotation>
+                    <xsd:documentation><![CDATA[
+类路径下的地址
+            ]]></xsd:documentation>
+                </xsd:annotation>
+            </xsd:attribute>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="if" type="TBeanDefinition">
+        <xsd:annotation>
+            <xsd:documentation><![CDATA[
+条件判断
+      ]]></xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element name="if-not" type="TBeanDefinition">
+        <xsd:annotation>
+            <xsd:documentation><![CDATA[
+条件判断
+      ]]></xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+
+    <xsd:element name="exist" type="TExistDefine">
+        <xsd:annotation>
+            <xsd:documentation><![CDATA[
+条件判断
+      ]]></xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+
+    <xsd:element name="not-exist" type="TExistDefine">
+        <xsd:annotation>
+            <xsd:documentation><![CDATA[
+条件判断
+      ]]></xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+
+    <xsd:complexType name="TBeanDefinition">
+        <xsd:sequence minOccurs="1" maxOccurs="unbounded">
+            <xsd:any namespace="##any" minOccurs="1" maxOccurs="unbounded"/>
+        </xsd:sequence>
+        <xsd:attribute name="actual" type="xsd:string" use="required">
+            <xsd:annotation>
+                <xsd:documentation><![CDATA[
+真实的值
+            ]]></xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="expect" type="xsd:string" use="required">
+            <xsd:annotation>
+                <xsd:documentation><![CDATA[
+期望的值
+            ]]></xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+    </xsd:complexType>
+    <xsd:complexType name="TExistDefine">
+        <xsd:sequence minOccurs="1" maxOccurs="unbounded">
+            <xsd:any namespace="##any" minOccurs="1" maxOccurs="unbounded"/>
+        </xsd:sequence>
+        <xsd:attribute name="actual" type="xsd:string" use="required">
+            <xsd:annotation>
+                <xsd:documentation><![CDATA[
+期望的值
+            ]]></xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+    </xsd:complexType>
+
+    <xsd:element name="switch">
+        <xsd:annotation>
+            <xsd:documentation><![CDATA[
+条件判断
+      ]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:sequence minOccurs="1" maxOccurs="unbounded">
+                <xsd:element name="case" minOccurs="1" maxOccurs="unbounded">
+                    <xsd:complexType>
+                        <xsd:sequence minOccurs="1" maxOccurs="unbounded">
+                            <xsd:any namespace="##any" minOccurs="1" maxOccurs="unbounded"/>
+                        </xsd:sequence>
+                        <xsd:attribute name="value" type="xsd:string" use="required">
+                            <xsd:annotation>
+                                <xsd:documentation><![CDATA[
+期望的值
+            ]]></xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:attribute>
+                    </xsd:complexType>
+                </xsd:element>
+                <xsd:element name="default" minOccurs="0" maxOccurs="1">
+                    <xsd:complexType>
+                        <xsd:sequence minOccurs="1" maxOccurs="unbounded">
+                            <xsd:any namespace="##any" minOccurs="1" maxOccurs="unbounded"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </xsd:sequence>
+            <xsd:attribute name="variable" type="xsd:string" use="required">
+                <xsd:annotation>
+                    <xsd:documentation><![CDATA[
+真实的值
+            ]]></xsd:documentation>
+                </xsd:annotation>
+            </xsd:attribute>
+        </xsd:complexType>
+    </xsd:element>
+
+</xsd:schema>

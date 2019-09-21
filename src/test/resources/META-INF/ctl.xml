@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:ctl="http://www.yxffcode.cn/schema/ctl" xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd  http://www.yxffcode.cn/schema/ctl
+            http://www.yxffcode.cn/schema/ctl/ctl.xsd">
+
+    <ctl:place-holder location="classpath:/META-INF/app.properties"/>
+    <ctl:if actual="${env}" expect="local">
+        <bean class="cn.yxffcode.springcfg.ctl.xml.TestBean">
+            <ctl:exist actual="${appName}">
+                <property name="appName" value="${appName}"/>
+            </ctl:exist>
+            <ctl:not-exist actual="${run_mode}">
+                <property name="runMode" value="0"/>
+            </ctl:not-exist>
+        </bean>
+    </ctl:if>
+
+    <ctl:switch variable="${env}">
+        <ctl:case value="local">
+            <bean class="cn.yxffcode.springcfg.ctl.xml.TestBean">
+                <ctl:exist actual="${appName}">
+                    <property name="appName" value="${appName}"/>
+                </ctl:exist>
+                <ctl:switch variable="${run_mode_v}">
+                    <ctl:case value="1">
+                        <property name="runMode" value="${run_mode_v}"/>
+                    </ctl:case>
+                    <ctl:default>
+                        <property name="runMode" value="0"/>
+                    </ctl:default>
+                </ctl:switch>
+            </bean>
+        </ctl:case>
+    </ctl:switch>
+
+</beans>
